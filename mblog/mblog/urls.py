@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
-index,homepage,author,listing01,post
+index,homepage,author,listing01,post,index1
 
 urlpatterns = [
+    path("index1/", index1),
     path("admin/", admin.site.urls),
     path('about/', about),
     path('list/', listing),

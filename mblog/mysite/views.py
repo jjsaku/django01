@@ -54,3 +54,5 @@ def post(request, yr, mon, day, post_num):
     html = f"<h2>{yr}/{mon}/{day}:Post Number:{post_num}</h2><hr>"
     return HttpResponse(html)
 
+def index1(request):
+    return render(request, 'index1.html', {'msg':'Hello'})
