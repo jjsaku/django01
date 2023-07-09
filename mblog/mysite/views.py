@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 import random
 from mysite.models import Product
+from datetime import datetime
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -38,7 +39,7 @@ def homepage(request):
     postid = 1
 
     html = "<a href='{}'>Show the Post</a>"\
-    .format(reverse(''))
+    #.format(reverse(''))
 
 
     return HttpResponse('Hello World!')
@@ -56,3 +57,18 @@ def post(request, yr, mon, day, post_num):
 
 def index1(request):
     return render(request, 'index1.html', {'msg':'Hello'})
+
+def index2(request):
+    now = datetime.now()
+    return render(request, 'index2.html', locals())
+
+def index3(request, tvno = 0):
+    tv_list = [
+        {'name':'三立', 'tvcode':'oZdzzvxTfUY'},
+        {'name':'中視', 'tvcode':'TCnaIE_SAtM'},
+        {'name':'中天', 'tvcode':'zMoMuvPCoo4'},
+        {'name':'民視', 'tvcode':'ylYJSBUgaMA'},
+    ]
+    now = datetime.now()
+    tv = tv_list[tvno]
+    return render(request, 'index3.html', locals())
