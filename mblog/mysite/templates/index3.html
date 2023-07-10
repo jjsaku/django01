@@ -19,7 +19,11 @@
         <nav class='navbar navbar-default'>
             <div class='container-fluid'>
                 <div class='navbar-header'>
-                    <a class='navbar-brand' href='#'>現正播出{{ tv.name }} </a>
+                    <a class='navbar-brand' href='#'>
+                        <!--{% load static %}-->
+                        <img src='./static/images/logo.png' width = 60>
+                        <!--<img src="{% static 'images/logo.png' %}" width = 60>-->
+                        現正播出{{ tv.name }} </a>
 
                 </div>
 

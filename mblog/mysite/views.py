@@ -72,3 +72,26 @@ def index3(request, tvno = 0):
     now = datetime.now()
     tv = tv_list[tvno]
     return render(request, 'index3.html', locals())
+
+def index4(request, tvno = 0):
+    tv_list = [
+        {'name':'三立', 'tvcode':'oZdzzvxTfUY'},
+        {'name':'中視', 'tvcode':'TCnaIE_SAtM'},
+        {'name':'中天', 'tvcode':'zMoMuvPCoo4'},
+        {'name':'民視', 'tvcode':'ylYJSBUgaMA'},
+    ]
+    now = datetime.now()
+    tv = tv_list[tvno]
+    return render(request, 'index4.html', locals())
+
+def engtv(request, tvno='0'):
+    tv_list = [
+        {'name':'SkyNews', 'tvcode':'9Auq9mYxFEE'},
+        {'name':'Euro News', 'tvcode':'pykpO5kQJ98'},
+        {'name':'India News', 'tvcode':'Xmm3Kr5P1Uw'},
+        {'name':'CNA News', 'tvcode':'XWq5kBlakcQ'},
+    ]
+    now = datetime.now()
+    tvno = tvno
+    tv = tv_list[int(tvno)]
+    return render(request, 'engtv.html', locals())
