@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
-index,homepage,author,listing01,post,index1,index2,index3,index4,engtv
+index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
+,carlist
 
 urlpatterns = [
     path("index1/", index1),
@@ -34,6 +35,8 @@ urlpatterns = [
     path('<int:tvno>/', index4, name = 'tv-url'),
     path('engtv/', engtv),
     path('engtv/<int:tvno>/', engtv, name='engtv-url'),
+    path('carlist/', carlist),
+    path('carlist/<int:maker>/', carlist, name='carlist-url'),
     #path('<int:tvno>', index3, name = 'tv-url'),
 ]
 '''

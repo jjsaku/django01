@@ -82,6 +82,7 @@ def index4(request, tvno = 0):
     ]
     now = datetime.now()
     tv = tv_list[tvno]
+    hour = now.timetuple().tm_hour
     return render(request, 'index4.html', locals())
 
 def engtv(request, tvno='0'):
@@ -95,3 +96,19 @@ def engtv(request, tvno='0'):
     tvno = tvno
     tv = tv_list[int(tvno)]
     return render(request, 'engtv.html', locals())
+
+def carlist(request, maker=0):
+    car_maker = ['SAAB','Ford','Honda','Mazda','Nissan','Toyota']
+    car_list = [
+        [],
+        ['Fiesta','Focus','Modeo','EcoSport','Kuga','Mustang'],
+        ['Fit','Odyssey','CR-V','City','NSX'],
+        ['Mazda3','Mazda5','Mazda6','CX-3','CX-5','MX-5'],
+        ['Tida','March','Livina','Sentra','Teana','X-Trail','Juke','Murano'],
+        ['Camry','Altis','Yaris','86','Prius','Vios','RAV4','Wish']
+    ]
+    maker = maker
+    maker_name = car_maker[maker]
+    cars = car_list[maker]
+    return render(request, 'carlist.html', locals())
+

@@ -5,17 +5,33 @@
 {% block menu %}
 <ul class='nav navbar-nav'>
     <li class='active'><a href='/'>Home</a></li>
+    {% for tv in tv_list %}
+        <li><a href='/{{ forloop.counter0 }}/'>{{ tv.name }}</a></li>
+    {% endfor %}
+
+
+
+    <!--
     <li><a href="{% url 'tv-url' 0 %}"> 三立 </a></li>
     <li><a href="{% url 'tv-url' 1 %}"> 中視 </a></li>
     <li><a href="{% url 'tv-url' 2 %}"> 中天 </a></li>
     <li><a href="{% url 'tv-url' 3 %}"> 民視 </a></li>
     <li><a href="http://localhost:8000/3"> 民視2 </a></li>
+    -->
 </ul>
 {% endblock %}
 {% block content %}
     <div class='container'>
         <div id='tvcode' align='center'>
-            <iframe width='560' height='315' src='https://www.youtube.com/embed/{{ tv.tvcode }}?autoplay=1' frameborder='0' allowfullscreen></iframe>
+            {% if hour > 18 %}
+                晚安
+            {% elif hour < 10 %}
+                早安
+            {% endif %}
+            <br>
+            <iframe width='560' height='315' src='https://www.youtube.com/embed/{{ tv.tvcode }}?autoplay=1' frameborder='0' allowfullscreen>
+
+            </iframe>
         </div>
     </div>
 {% endblock %}
