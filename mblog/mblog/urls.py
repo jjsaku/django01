@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
-,carlist
+,carlist,carprice
 
 urlpatterns = [
     path("index1/", index1),
@@ -36,7 +36,9 @@ urlpatterns = [
     path('engtv/', engtv),
     path('engtv/<int:tvno>/', engtv, name='engtv-url'),
     path('carlist/', carlist),
-    path('carlist/<int:maker>/', carlist, name='carlist-url'),
+    path('carlist/<int:maker>/', carlist),
+    path('carprice/', carprice),
+    path('carprice/<int:maker>/', carprice, name='carprice-url'),
     #path('<int:tvno>', index3, name = 'tv-url'),
 ]
 '''
