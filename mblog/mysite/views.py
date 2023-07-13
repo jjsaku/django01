@@ -133,3 +133,6 @@ def carprice(request, maker=0):
     cars = car_list[maker]
     return render(request, 'carprice.html', locals())
 
+def index5(request):
+    return render(request, 'index5.html', locals())
+

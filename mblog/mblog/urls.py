@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
-,carlist,carprice
+,carlist,carprice,index5
 
 urlpatterns = [
     path("index1/", index1),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('about/', about),
     path('list/', listing),
     path('list/<str:sku>/', disp_detail),
+    path("", index5),
     path("", index),
     path('homepage/',homepage),
     path('author/<int:author_no>/', author),
@@ -40,6 +41,7 @@ urlpatterns = [
     path('carprice/', carprice),
     path('carprice/<int:maker>/', carprice, name='carprice-url'),
     #path('<int:tvno>', index3, name = 'tv-url'),
+    
 ]
 '''
 urlpatterns = {
