@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 import random
-from mysite.models import Product
+from mysite.models import Product,Product2
 from datetime import datetime
+from mysite import models
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -136,3 +137,15 @@ def carprice(request, maker=0):
 def index5(request):
     return render(request, 'index5.html', locals())
 
+
+def index6(request):
+    products = models.Product2.objects.all()
+    return render(request, 'index6.html', locals())
+
+def detail(request, id):
+    try:
+        product = models.Product2.objects.get(id=id)
+        images = models.PPhoto.objects.filter(product=product)
+    except:
+        pass
+    return render(request, 'detail.html', locals())
