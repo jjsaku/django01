@@ -8,7 +8,6 @@ admin.site.register(NewTable)
 admin.site.register(Product)
 admin.site.register(Maker)
 admin.site.register(PModel)
-admin.site.register(Product2)
 admin.site.register(PPhoto)
 admin.site.register(Maker_test)
 admin.site.register(PModel_test)
@@ -16,4 +15,12 @@ admin.site.register(Maker_test2)
 admin.site.register(PModel_test2)
 admin.site.register(Maker_test3)
 admin.site.register(PModel_test3)
+
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('pmodel', 'nickname', 'price', 'year')
+    search_fields=('nickname',)
+    ordering = ('-price',)
+
+admin.site.register(Product2, ProductAdmin)
 
