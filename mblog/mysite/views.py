@@ -152,8 +152,11 @@ def detail(request, id):
 
 def index7(request):
     try:
-        urid = request.GET('user_id')
-        urpass = request.GET('user_pass')
+        urid = request.GET['user_id']
+        urpass = request.GET['user_pass']
+        byear = request.GET['byear']
+        urfcolor = request.GET.getlist('fcolor')
+
     except:
         urid = None
         
@@ -161,4 +164,5 @@ def index7(request):
         verified = True
     else:
         verified = False
+    years = range(1960,2024)
     return render(request, 'index7.html', locals())
