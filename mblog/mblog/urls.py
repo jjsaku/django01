@@ -44,8 +44,8 @@ urlpatterns = [
     path('carprice/', carprice),
     path('carprice/<int:maker>/', carprice, name='carprice-url'),
     path('detail/<int:id>', detail, name = 'detail-url'),
-    path('index6', index6),
-    path('index7', index7),
+    path('index6/', index6),
+    path('index7/', index7),
     #path('<int:tvno>', index3, name = 'tv-url'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
