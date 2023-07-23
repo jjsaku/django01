@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 import random
-from mysite.models import Product,Product2
+from mysite.models import Product,Product2,Post2,Mood
 from datetime import datetime
 from mysite import models
 
@@ -166,3 +166,35 @@ def index7(request):
         verified = False
     years = range(1960,2024)
     return render(request, 'index7.html', locals())
+
+def index8(request):
+    posts = models.Post2.objects.filter(enabled=True).order_by('-pub_time')[:30]
+    moods = models.Mood.objects.all()
+    try:
+        user_id = request.GET['user_id']
+        user_pass = request.GET['user_pass']
+        user_post = request.GET['user_post']
+        user_mood = request.GET['mood']
+    except:
+        user_id = None
+        message = '如要張貼訊息，則每一個欄位都要填...'
+
+    if user_id != None:
+        mood = models.Mood.objects.get(status=user_mood)
+        post = models.Post2(mood=mood, nickname=user_id, del_pass=user_pass, message=user_post)
+        post.save()
+        message=f'成功儲存!請記得你的編輯密碼[{user_pass}]!，訊息需經審查後才會顯示。'
+
+    return render(request, 'index8.html', locals())
+
+def delpost(request, pid=None, del_pass=None):
+    if del_pass and pid:
+        try:
+            post = models.Post2.objects.get(id=pid)
+            if post.del_pass == del_pass:
+                post.delete()
+        except:
+            pass
+    return redirect('/index8')
+            
+
