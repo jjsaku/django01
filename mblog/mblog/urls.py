@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
-,carlist,carprice,index5,index6,detail,index7,index8, delpost
+,carlist,carprice,index5,index6,detail,index7,index8, delpost,listing2,posting2 \
+,contact
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -48,6 +49,10 @@ urlpatterns = [
     path('index7/', index7),
     path('index8/', index8),
     path('delpost/<int:pid>/<str:del_pass>/', delpost),
+    path('list2/', listing2),
+    path('post2/', posting2),
+    path('contact/', contact),
+
     #path('<int:tvno>', index3, name = 'tv-url'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

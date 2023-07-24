@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 import random
 from mysite.models import Product,Product2,Post2,Mood
 from datetime import datetime
-from mysite import models
+from mysite import models, forms
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -196,5 +196,32 @@ def delpost(request, pid=None, del_pass=None):
         except:
             pass
     return redirect('/index8')
+
+def listing2(request):
+    posts = models.Post2.objects.filter(enabled=True).order_by('-pub_time')[:150]
+    moods = models.Mood.objects.all()
+    return render(request, 'listing2.html', locals())
+
+def posting2(request):
+    moods = models.Mood.objects.all()
+    message = '如要張貼訊息，則每一個欄位都要填...'
+    if request.method=='POST':
+        user_id = request.POST.get('user_id')
+        user_pass = request.POST.get('user_pass')
+        user_post = request.POST.get('user_post')
+        user_mood = request.POST.get('mood')
+
+        if user_id != None:
+            mood = models.Mood.objects.get(status=user_mood)
+            post = models.Post2(mood=mood, nickname=user_id, del_pass=user_pass, message=user_post)
+            post.save()
+            return redirect('/list2/')
+
+    return render(request, 'posting2.html', locals())
+
+def contact(request):
+    form = forms.ContactForm()
+    return render(request, 'contact.html', locals())
+
             
 
