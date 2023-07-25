@@ -4,6 +4,7 @@ import random
 from mysite.models import Product,Product2,Post2,Mood
 from datetime import datetime
 from mysite import models, forms
+from django.core.mail import EmailMessage
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -220,7 +221,36 @@ def posting2(request):
     return render(request, 'posting2.html', locals())
 
 def contact(request):
-    form = forms.ContactForm()
+    if request.method == 'POST' :
+        form = forms.ContactForm(request.POST)
+        if form.is_valid():
+            message = "感謝您的來信。"
+            user_name = form.cleaned_data['user_name']
+            user_city = form.cleaned_data['user_city']
+            user_school = form.cleaned_data['user_school']
+            user_email = form.cleaned_data['user_email']
+            user_message = form.cleaned_data['user_message']
+
+            mail_body = f'''
+            網友姓名:{user_name}
+            居住城市:{user_city}
+            是否在學:{user_school}
+            電子郵件:{user_email}
+            反應意見:如下
+            {user_message}
+            '''
+
+            email = EmailMessage(
+                '來自【不吐不快】網站的網友意見',
+                mail_body,
+                user_email,
+                ['jjsaku123@gmail.com','asdfhypnosis@gmail.com']
+            )
+            email.send()
+        else:
+            message = "請檢查您輸入的資訊是否正確!"
+    else:
+        form = forms.ContactForm()
     return render(request, 'contact.html', locals())
 
             
