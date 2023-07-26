@@ -34,6 +34,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jjsaku123@gmail.com'
 EMAIL_HOST_PASSWORD = 'gdyyubwmdxdmzjwr'
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LdSRlcnAAAAAGasnd5p62RUlfMVDCY9pUlLI9mN'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "mysite",
+    "captcha",
 ]
 
 MIDDLEWARE = [
