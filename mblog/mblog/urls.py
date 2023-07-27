@@ -19,7 +19,7 @@ from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
 ,carlist,carprice,index5,index6,detail,index7,index8, delpost,listing2,posting2 \
-,contact,post2db
+,contact,post2db,bmi
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -54,6 +54,7 @@ urlpatterns = [
     path('contact/', contact),
     path('post2db/', post2db),
     path('captcha/', include('captcha.urls')),
+    path('bmi/', bmi),
 
     #path('<int:tvno>', index3, name = 'tv-url'),
     

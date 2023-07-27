@@ -8,7 +8,7 @@ from django.core.mail import EmailMessage
 import json
 import urllib
 from django.conf import settings
-
+import pymongo
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -287,6 +287,32 @@ def post2db(request):
         message = '如要張貼訊息，則每一個欄位都要填...'
 
     return render(request, 'post2db.html', locals())
+
+def bmi(request):
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    collections = client["ch08mdb"]["bodyinfo"]
+    if request.method=="POST":
+        name = request.POST.get("name").strip()
+        height = request.POST.get("height").strip()
+        weight = request.POST.get("weight").strip()
+        collections.insert_one({
+            "name": name,
+            "height": height,
+            "weight": weight
+        })
+        return redirect("/bmi/")
+    else:
+        records = collections.find()
+        data = list()
+        for rec in records:
+            t = dict()
+            t['name'] = rec['name']
+            t['height'] = rec['height']
+            t['weight'] = rec['weight']
+            t['bmi'] = round(float(t['weight'])/(int(t['height'])/100)**2, 2)
+            data.append(t)
+
+    return render(request, "bmi.html", locals())
 
             
 
