@@ -173,6 +173,7 @@ def index7(request):
     return render(request, 'index7.html', locals())
 
 def index8(request):
+
     posts = models.Post2.objects.filter(enabled=True).order_by('-pub_time')[:30]
     moods = models.Mood.objects.all()
     try:
@@ -316,3 +317,15 @@ def bmi(request):
 
             
 
+def index9(request):
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+        message = "cookie supported!"
+    else:
+        message = 'cookie not supported'
+    request.session.set_test_cookie()
+
+    posts = models.Post2.objects.filter(enabled=True).order_by('-pub_time')[:30]
+    moods = models.Mood.objects.all()
+
+    return render(request, 'index9.html', locals())
