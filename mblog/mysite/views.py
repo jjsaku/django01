@@ -315,8 +315,17 @@ def bmi(request):
 
     return render(request, "bmi.html", locals())
 
-            
 
+
+def index9(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        usercolor = request.session['usercolor']
+        return render(request, 'index9.html', locals())
+
+    return render(request, 'index9.html', locals())
+
+'''
 def index9(request):
     if request.session.test_cookie_worked():
         request.session.delete_test_cookie()
@@ -329,3 +338,28 @@ def index9(request):
     moods = models.Mood.objects.all()
 
     return render(request, 'index9.html', locals())
+'''
+
+def login(request):
+    if request.method == 'POST':
+        login_form = forms.LoginForm(request.POST)
+        if login_form.is_valid():
+            username = request.POST['user_name']
+            usercolor = request.POST['user_color']
+            message = '登入成功'
+        else:
+            login_form = forms.LoginForm()
+    else:
+        login_form = forms.LoginForm()
+    try:
+        if username: request.session['username'] = username
+        if usercolor: request.session['usercolor'] = usercolor
+    except:
+        pass
+    return render(request, 'login.html', locals())
+
+def logout(request):
+    request.session['username'] = None
+    return redirect('/index9')
+
+    

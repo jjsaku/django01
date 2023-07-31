@@ -1,7 +1,33 @@
-<!-- index7.html -->
+<!---->
+
 {% extends 'base1.html' %}
-{% block title %} 我有話要說 {% endblock %}
+{% block title %}我的私人日記{% endblock %}
 {% block content %}
+<div class='container'>
+    {% if message %}
+    <div class='alert alert-warning'>{{ message }}</div>
+    {% endif %}
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='card-header' align=center>
+            <h3 class='alert alert-primart'>我的私人日記</h3>
+            </div>
+        </div>
+    </div>
+    {% if username and usercolor %}
+    你的姓名叫做: {{ username }}，最愛{{ usercolor }}色
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+<!-- 
+    index7.html 
+{% comment %} {% extends 'base1.html' %} {% endcomment %}
+{% comment %} {% block title %} 我有話要說 {% endblock %} {% endcomment %}
+{% comment %} {% block content %} {% endcomment %}
 
 
 
@@ -61,4 +87,5 @@
             {% endfor %}
         </div>
     </div>
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}
+-->
