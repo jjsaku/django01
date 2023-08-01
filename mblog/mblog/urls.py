@@ -19,7 +19,7 @@ from django.urls import path,include
 from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
 ,carlist,carprice,index5,index6,detail,index7,index8, delpost,listing2,posting2 \
-,contact,post2db,bmi,index9,login,logout
+,contact,post2db,bmi,index9,login,logout,login2,index10,logout2,userinfo
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -58,7 +58,10 @@ urlpatterns = [
     path('index9/', index9),
     path('login/', login),
     path('logout/', logout),
-
+    path('login2/', login2),
+    path('index10/', index10),
+    path('logout2/', logout2),
+    path('userinfo/', userinfo),
     #path('<int:tvno>', index3, name = 'tv-url'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

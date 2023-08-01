@@ -9,6 +9,8 @@ import json
 import urllib
 from django.conf import settings
 import pymongo
+from django.contrib.sessions.models import Session
+
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -362,4 +364,47 @@ def logout(request):
     request.session['username'] = None
     return redirect('/index9')
 
-    
+def login2(request):
+    if request.method == 'POST':
+        login_form = forms.LoginForm2(request.POST)
+        if login_form.is_valid():
+            login_name = request.POST['username'].strip()
+            login_password = request.POST['password']
+            try:
+                user = models.User.objects.get(name = login_name)
+                if user.password == login_password:
+                    request.session['username'] = user.name
+                    request.session['useremail'] = user.email
+                    return redirect('/index10')
+                else:
+                    message = '密碼錯誤，請再檢查一次'
+            except:
+                message = '找不到使用者'
+        else:
+            message = '請檢查輸入的欄位內容'
+    else:
+        login_form = forms.LoginForm2()
+    return render(request, 'login2.html', locals())
+
+def index10(request):
+    if 'username' in request.session and request.session['username'] != None:
+        username = request.session['username']
+        useremail = request.session['useremail']
+    return render(request, 'index10.html', locals())
+
+def logout2(request):
+    if 'username' in request.session:
+        Session.objects.all().delete()
+        return redirect('/login2/')
+    return redirect('/index10')
+
+def userinfo(request):
+    if 'username' in request.session:
+        username = request.session['username']
+    else:
+        return redirect('/login2/')
+    try:
+        userinfo = models.User.objects.get(name=username)
+    except:
+        pass
+    return render(request, 'userinfo.html', locals())

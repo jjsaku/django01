@@ -45,3 +45,7 @@ class LoginForm(forms.Form):
     ]
     user_name = forms.CharField(label='你的姓名', max_length=10)
     user_color = forms.ChoiceField(label='幸運顏色', choices=COLORS)
+
+class LoginForm2(forms.Form):
+    username = forms.CharField(label='姓名', max_length=10)
+    password = forms.CharField(label='密碼', widget=forms.PasswordInput())
