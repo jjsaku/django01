@@ -10,6 +10,7 @@ import urllib
 from django.conf import settings
 import pymongo
 from django.contrib.sessions.models import Session
+from django.contrib import messages
 
 
 def index(request):
@@ -375,13 +376,17 @@ def login2(request):
                 if user.password == login_password:
                     request.session['username'] = user.name
                     request.session['useremail'] = user.email
+                    messages.add_message(request, messages.SUCCESS, '成功登入了')
                     return redirect('/index10')
                 else:
-                    message = '密碼錯誤，請再檢查一次'
+                    messages.add_message(request, messages.WARNING, '密碼錯誤，請再檢查一次')
+                    #message = '密碼錯誤，請再檢查一次'
             except:
-                message = '找不到使用者'
+                messages.add_message(request, messages.WARNING, '找不到使用者')
+                #message = '找不到使用者'
         else:
-            message = '請檢查輸入的欄位內容'
+            messages.add_message(request, messages.INFO, '請檢查輸入的欄位內容')
+            #message = '請檢查輸入的欄位內容'
     else:
         login_form = forms.LoginForm2()
     return render(request, 'login2.html', locals())
