@@ -11,7 +11,10 @@ from django.conf import settings
 import pymongo
 from django.contrib.sessions.models import Session
 from django.contrib import messages
-
+from django.contrib.auth import authenticate
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 def index(request):
     quotes = ['今日事，今日畢',
@@ -371,6 +374,7 @@ def login2(request):
         if login_form.is_valid():
             login_name = request.POST['username'].strip()
             login_password = request.POST['password']
+            #user = authenticate(username=login_name, password=login_password)
             try:
                 user = models.User.objects.get(name = login_name)
                 if user.password == login_password:
@@ -390,6 +394,9 @@ def login2(request):
     else:
         login_form = forms.LoginForm2()
     return render(request, 'login2.html', locals())
+
+
+
 
 def index10(request):
     if 'username' in request.session and request.session['username'] != None:
@@ -413,3 +420,46 @@ def userinfo(request):
     except:
         pass
     return render(request, 'userinfo.html', locals())
+
+def login3(request):
+    if request.method == 'POST':
+        login_form = forms.LoginForm2(request.POST)
+        if login_form.is_valid():
+            login_name = request.POST['username'].strip()
+            login_password = request.POST['password']
+            user = authenticate(username=login_name, password=login_password)
+            if user is not None:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.add_message(request, messages.SUCCESS, '成功登入了')
+                    return redirect('/index11')
+                else:
+                    messages.add_message(request, messages.WARNING, '帳號尚未啟用')
+            else:
+                messages.add_message(request, messages.WARNING, '登入失敗')
+        else:
+            messages.add_message(request, messages.INFO, '請檢查輸入的欄位內容')
+    else:
+        login_form = forms.LoginForm2()
+    return render(request, 'login2.html', locals())
+
+def index11(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+    messages.get_messages(request)
+    return render(request, 'index11.html', locals())
+
+@login_required(login_url='/login3/')
+def userinfo2(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+        try:
+            userinfo = User.objects.get(username=username)
+        except:
+            pass
+    return render(request, 'userinfo.html', locals())
+
+def logout3(request):
+    auth.logout(request)
+    messages.add_message(request, messages.INFO, '成功登出了')
+    return redirect('/index11')

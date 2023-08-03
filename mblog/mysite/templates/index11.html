@@ -1,0 +1,22 @@
+{% extends 'base1.html' %}
+{% block title %}我的私人日記{% endblock %}
+{% block content %}
+<div class='container'>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tags }}'> {{ message }} </div>
+    {% endfor %}
+    {% comment %} {% if message %} {% endcomment %}
+    {% comment %} <div class='alert alert-warning'>{{ message }}</div> {% endcomment %}
+    {% comment %} {% endif %} {% endcomment %}
+    <div class='row'>
+        <div class='col-md-12'>
+            <div class='card-header' align=center>
+            <h3 class='alert alert-primary'>我的私人日記</h3>
+            </div>
+        </div>
+    </div>
+    {% if username %}
+    歡迎:{{ username }}
+    {% endif %}
+</div>
+{% endblock %}
