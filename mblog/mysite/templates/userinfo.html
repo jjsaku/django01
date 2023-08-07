@@ -8,8 +8,12 @@
         </div>
     </div>
     <p>
-        您的姓名: {{ userinfo.name }} <br/>
-        電子郵件: {{ userinfo.email }} <br/>
+        姓名:{{ userinfo.user.username }}<br/>
+        電子郵件: {{ userinfo.user.email }} <br/>
+        身高: {{ userinfo.height }} cm<br/>
+        {% comment %} 性別：{{ userinfo.male | yesno:"男生,女生"}}<br/> {% endcomment %}
+        性別: {{ userinfo.male | yesno:"男生,女生" }}
+        
     </p>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 import random
 from mysite.models import Product,Product2,Post2,Mood
 from datetime import datetime
@@ -454,7 +454,9 @@ def userinfo2(request):
     if request.user.is_authenticated:
         username = request.user.username
         try:
-            userinfo = User.objects.get(username=username)
+            user = User.objects.get(username=username)
+            userinfo = models.Profile.objects.get(user=user)
+            #userinfo = User.objects.get(username=username)
         except:
             pass
     return render(request, 'userinfo.html', locals())
@@ -463,3 +465,25 @@ def logout3(request):
     auth.logout(request)
     messages.add_message(request, messages.INFO, '成功登出了')
     return redirect('/index11')
+
+@login_required(login_url='/login3/')
+def posting3(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+        useremail = request.user.email
+    messages.get_messages(request)
+
+    if request.method == 'POST':
+        user = User.objects.get(username=username)
+        diary = models.Diary(user=user)
+        post_form = forms.DiaryForm(request.POST, instance=diary)
+        if post_form.is_valid():
+            messages.add_message(request, messages.INFO, '日記已儲存')
+            post_form.save()
+            return HttpResponseRedirect('/index11')
+        else:
+            messages.add_message(request, messages.INFO, '要張貼日記，每一個欄位都要填...')
+    else:
+        post_form = forms.DiaryForm()
+        messages.add_message(request, messages.INFO, '要張貼日記，每一個欄位都要填...')
+    return render(request, 'posting3.html', locals())
