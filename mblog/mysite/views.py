@@ -480,10 +480,24 @@ def posting3(request):
         if post_form.is_valid():
             messages.add_message(request, messages.INFO, '日記已儲存')
             post_form.save()
-            return HttpResponseRedirect('/index11')
+            return HttpResponseRedirect('/index12')
         else:
             messages.add_message(request, messages.INFO, '要張貼日記，每一個欄位都要填...')
     else:
         post_form = forms.DiaryForm()
         messages.add_message(request, messages.INFO, '要張貼日記，每一個欄位都要填...')
     return render(request, 'posting3.html', locals())
+
+
+def index12(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+        useremail = request.user.email
+        try:
+            user = User.objects.get(username=username)
+            diaries = models.Diary.objects.filter(user=user).order_by('-ddate')
+        except Exception as e:
+            print(e)
+            pass
+    messages.get_messages(request)
+    return render(request, 'index12.html', locals())

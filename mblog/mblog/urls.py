@@ -20,10 +20,13 @@ from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
 ,carlist,carprice,index5,index6,detail,index7,index8, delpost,listing2,posting2 \
 ,contact,post2db,bmi,index9,login,logout,login2,index10,logout2,userinfo \
-,index11,login3,userinfo2,logout3
+,index11,login3,userinfo2,logout3,index12,posting3
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = '我的私人日記'
+admin.site.site_title = '我的私人日記'
+admin.site.index_title = '我的私人日記後台'
 
 urlpatterns = [
     path("index1/", index1),
@@ -67,6 +70,9 @@ urlpatterns = [
     path('login3/', login3),
     path('userinfo2/', userinfo2),
     path('logout3/', logout3),
+    path('index12/', index12),
+    path('posting3/', posting3),
+    
     #path('<int:tvno>', index3, name = 'tv-url'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
