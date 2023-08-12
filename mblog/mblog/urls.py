@@ -20,9 +20,10 @@ from mysite.views import about,listing,disp_detail, \
 index,homepage,author,listing01,post,index1,index2,index3,index4,engtv \
 ,carlist,carprice,index5,index6,detail,index7,index8, delpost,listing2,posting2 \
 ,contact,post2db,bmi,index9,login,logout,login2,index10,logout2,userinfo \
-,index11,login3,userinfo2,logout3,index12,posting3
+,index11,login3,userinfo2,logout3,index12,posting3,votes
 from django.conf import settings
 from django.conf.urls.static import static
+from mysite import views
 
 admin.site.site_header = '我的私人日記'
 admin.site.site_title = '我的私人日記'
@@ -72,9 +73,11 @@ urlpatterns = [
     path('logout3/', logout3),
     path('index12/', index12),
     path('posting3/', posting3),
-    
+    path('votes/', views.votes),
+    path('plotly/', views.plotly),
+    path('plotly2/', views.plotly2),
+    path('chart3d/', views.chart3d),
     #path('<int:tvno>', index3, name = 'tv-url'),
-    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 '''

@@ -1,0 +1,17 @@
+<!--chart3d.html-->
+{% extends 'base1.html' %}
+{% block title %}3D繪圖展示{% endblock %}
+{% block content %}
+<div class='container'>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tags }}'>{{ message }}</div>
+    {% endfor %}
+        <div class='row'>
+            <div class='col-md-12'>
+                {% autoescape off %}
+                {{ plot_div }}
+                {% endautoescape %}
+            </div>
+        </div>
+</div>
+{% endblock %}
