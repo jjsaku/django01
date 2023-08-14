@@ -77,6 +77,8 @@ urlpatterns = [
     path('plotly/', views.plotly),
     path('plotly2/', views.plotly2),
     path('chart3d/', views.chart3d),
+    path('accounts/', include('registration.backends.default.urls')),
+    path('userinfo3/', views.userinfo3),
     #path('<int:tvno>', index3, name = 'tv-url'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

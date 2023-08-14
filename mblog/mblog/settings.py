@@ -16,6 +16,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -49,8 +51,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "mysite",
+    "registration",
     "captcha",
+    
 ]
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

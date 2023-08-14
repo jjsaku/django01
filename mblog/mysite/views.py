@@ -436,7 +436,7 @@ def login3(request):
                 if user.is_active:
                     auth.login(request, user)
                     messages.add_message(request, messages.SUCCESS, '成功登入了')
-                    return redirect('/index11')
+                    return redirect('/index12')
                 else:
                     messages.add_message(request, messages.WARNING, '帳號尚未啟用')
             else:
@@ -451,7 +451,7 @@ def index11(request):
     if request.user.is_authenticated:
         username = request.user.username
     messages.get_messages(request)
-    return render(request, 'index11.html', locals())
+    return render(request, 'index12.html', locals())
 
 @login_required(login_url='/login3/')
 def userinfo2(request):
@@ -468,7 +468,7 @@ def userinfo2(request):
 def logout3(request):
     auth.logout(request)
     messages.add_message(request, messages.INFO, '成功登出了')
-    return redirect('/index11')
+    return redirect('/index12')
 
 @login_required(login_url='/login3/')
 def posting3(request):
@@ -547,3 +547,25 @@ def plotly2(request):
     plot_div = plot([go.Bar(y=labels, x=values,
                             orientation='h')], output_type='div')
     return render(request, 'plotly.html', locals())
+
+@login_required(login_url='/login3/')
+def userinfo3(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+    user = User.objects.get(username=username)
+    try:
+        profile = models.Profile.objects.get(user=user)
+    except:
+        profile = models.Profile(user=user)
+
+    if request.method == 'POST':
+        profile_form = forms.ProfileForm(request.POST, instance=profile)
+        if profile_form.is_valid():
+            messages.add_message(request, messages.INFO, '個人資料已儲存')
+            profile_form.save()
+            return redirect('/userinfo3')
+        else:
+            messages.add_message(request, messages.INFO, '要修改個人資料，每一個欄位都要填...')
+    else:
+        profile_form = forms.ProfileForm()
+    return render(request, 'userinfo3.html', locals())
